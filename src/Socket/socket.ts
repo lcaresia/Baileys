@@ -231,7 +231,7 @@ export const makeSocket = (config: SocketConfig) => {
 		const result = await promiseTimeout<any>(timeoutMs, async(resolve, reject) => {
 			console.log('ENTROU NO PROMISETIMEOUT [timeoutMs, msgId]:', timeoutMs, msgId)
 
-			const result = await waitForMessage(msgId, timeoutMs).catch(reject)
+			const [result] = await waitForMessage(msgId, timeoutMs).catch(reject)
 			console.log('APÓS O WAITFORMESSAGE [result]:', result)
 			console.log('APÓS O WAITFORMESSAGE [node]:', node)
 
