@@ -237,17 +237,24 @@ export const makeSocket = (config: SocketConfig) => {
 			console.log('APÓS O waitForMessage [message]:', message)
 
 			sendNode(node)
-				.then(() => resolve(result))
+				.then(() => resolve(message))
 				.catch(reject)
 		})
 
-		// const message = waitForMessage(msgId, timeoutMs)
-		// console.log('APÓS O waitForMessage [message]:', message)
-		
-		// const resultSendNode = sendNode(node)
-		// console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
 
-		// const [result] = await Promise.all([message, resultSendNode])
+		// --------------
+
+		const message = waitForMessage(msgId, timeoutMs)
+		console.log('APÓS O waitForMessage [message]:', message)
+		
+		const resultSendNode = sendNode(node)
+		console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
+
+		const [result] = await Promise.all([message, resultSendNode])
+
+
+
+		
 
 		console.log('APÓS O Promise.all [result]:', result)
 
