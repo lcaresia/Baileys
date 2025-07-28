@@ -185,21 +185,25 @@ export const makeSocket = (config: SocketConfig) => {
 	 * @param timeoutMs timeout after which the promise will reject
 	 */
 	const waitForMessage = async<T>(msgId: string, timeoutMs = defaultQueryTimeoutMs) => {
-		let onRecv: (json) => void
-		let onErr: (err) => void
+		let onRecv: ((data: T) => void) | undefined
+		let onErr: ((err: Error) => void) | undefined
 		try {
 			console.log('LOG DO LUCAS NÃO MEXEMOS EM NADA')
 			
 			const result = await promiseTimeout<T>(timeoutMs,
 				(resolve, reject) => {
-					onRecv = resolve
+					onRecv = data => {
+						resolve(data)
+					}
 					onErr = err => {
 						reject(err || new Boom('Connection Closed', { statusCode: DisconnectReason.connectionClosed }))
 					}
 
 					ws.on(`TAG:${msgId}`, onRecv)
 					ws.on('close', onErr) // if the socket closes, you'll never receive the message
-					ws.off('error', onErr)
+					ws.on('error', onErr)
+
+					return () => reject(new Boom('Query Cancelled'))
 				},
 			)
 
