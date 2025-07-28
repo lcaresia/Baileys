@@ -228,19 +228,17 @@ export const makeSocket = (config: SocketConfig) => {
 
 		const msgId = node.attrs.id
 
-		// const result = await promiseTimeout<any>(timeoutMs, async(resolve, reject) => {
-		// 	console.log('ENTROU NO PROMISETIMEOUT [timeoutMs, msgId]:', timeoutMs, msgId)
+		const result = await promiseTimeout<any>(timeoutMs, async(resolve, reject) => {
+			console.log('ENTROU NO PROMISETIMEOUT [timeoutMs, msgId]:', timeoutMs, msgId)
 
-		// 	const [result] = await waitForMessage(msgId, timeoutMs).catch(reject)
-		// 	console.log('APÓS O WAITFORMESSAGE [result]:', result)
-		// 	console.log('APÓS O WAITFORMESSAGE [node]:', node)
+			const result = await waitForMessage(msgId, timeoutMs).catch(reject)
+			console.log('APÓS O WAITFORMESSAGE [result]:', result)
+			console.log('APÓS O WAITFORMESSAGE [node]:', node)
 
-		// 	sendNode(node)
-		// 		.then(() => resolve(result))
-		// 		.catch(reject)
-		// })
-
-		const [result] = await Promise.all([waitForMessage(msgId, timeoutMs), sendNode(node)])
+			sendNode(node)
+				.then(() => resolve(result))
+				.catch(reject)
+		})
 
 		console.log('APÓS O RESULTADO [result]:', result)
 
