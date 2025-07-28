@@ -229,7 +229,7 @@ export const makeSocket = (config: SocketConfig) => {
 		const msgId = node.attrs.id
 
 		const result = await promiseTimeout<any>(timeoutMs, async(resolve, reject) => {
-			const message = await waitForMessage(msgId, timeoutMs).catch(reject)
+			const message = await waitForMessage(msgId, timeoutMs)
 			console.log('APÓS O waitForMessage [message]:', message)
 
 			sendNode(node)
