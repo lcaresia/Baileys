@@ -244,13 +244,13 @@ export const makeSocket = (config: SocketConfig) => {
 
 		// --------------
 
-		const message = waitForMessage(msgId, timeoutMs)
-		console.log('APÓS O waitForMessage [message]:', message)
+		// const message = waitForMessage(msgId, timeoutMs)
+		// console.log('APÓS O waitForMessage [message]:', message)
 		
-		const resultSendNode = sendNode(node)
-		console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
+		// const resultSendNode = sendNode(node)
+		// console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
 
-		const [result] = await Promise.all([message, resultSendNode])
+		// const [result] = await Promise.all([message, resultSendNode])
 
 
 
