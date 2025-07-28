@@ -69,5 +69,6 @@ module.exports = function (bucket, awaitable) {
 };
 
 module.exports.cleanupQueues = function () {
+    console.log('Cleaning up async queues..............');
    _queueAsyncBuckets.clear()
 }

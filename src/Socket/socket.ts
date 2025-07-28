@@ -188,8 +188,6 @@ export const makeSocket = (config: SocketConfig) => {
 		let onRecv: ((data: T) => void) | undefined
 		let onErr: ((err: Error) => void) | undefined
 		try {
-			console.log('LOG DO LUCAS NÃO MEXEMOS EM NADA')
-			
 			const result = await promiseTimeout<T>(timeoutMs,
 				(resolve, reject) => {
 					onRecv = data => {
@@ -230,8 +228,6 @@ export const makeSocket = (config: SocketConfig) => {
 		
 		const [result] = await Promise.all([waitForMessage(msgId, timeoutMs), sendNode(node)])
 		
-		console.log('APÓS O Promise.all [result]:', result)
-
 		if(result && 'tag' in result) {
 			assertNodeErrorFree(result)
 		}
