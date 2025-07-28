@@ -240,7 +240,7 @@ export const makeSocket = (config: SocketConfig) => {
 		// 		.catch(reject)
 		// })
 
-		const message = waitForMessage(msgId, timeoutMs), sendNode(node)
+		const message = waitForMessage(msgId, timeoutMs)
 		console.log('APÓS O waitForMessage [message]:', message)
 		
 		const resultSendNode = sendNode(node)
