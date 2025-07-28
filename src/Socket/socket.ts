@@ -187,6 +187,8 @@ export const makeSocket = (config: SocketConfig) => {
 		let onRecv: (json) => void
 		let onErr: (err) => void
 		try {
+			console.log('LOG DO LUCAS NÃO MEXEMOS EM NADA')
+			
 			const result = await promiseTimeout<T>(timeoutMs,
 				(resolve, reject) => {
 					onRecv = resolve
