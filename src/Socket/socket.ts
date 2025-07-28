@@ -227,35 +227,9 @@ export const makeSocket = (config: SocketConfig) => {
 		}
 
 		const msgId = node.attrs.id
-
-		const result = await promiseTimeout<any>(timeoutMs, async(resolve, reject) => {
-			const message = await waitForMessage(msgId, timeoutMs).catch(error => {
-				console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:', error)
-				reject(error)
-			})
-
-			console.log('APÓS O waitForMessage [message]:', message)
-
-			sendNode(node)
-				.then(() => resolve(message))
-				.catch(reject)
-		})
-
-
-		// --------------
-
-		// const message = waitForMessage(msgId, timeoutMs)
-		// console.log('APÓS O waitForMessage [message]:', message)
 		
-		// const resultSendNode = sendNode(node)
-		// console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
-
-		// const [result] = await Promise.all([message, resultSendNode])
-
-
-
+		const [result] = await Promise.all([waitForMessage(msgId, timeoutMs), sendNode(node)])
 		
-
 		console.log('APÓS O Promise.all [result]:', result)
 
 		if(result && 'tag' in result) {
