@@ -240,9 +240,15 @@ export const makeSocket = (config: SocketConfig) => {
 		// 		.catch(reject)
 		// })
 
-		const [result] = await Promise.all([waitForMessage(msgId, timeoutMs), sendNode(node)])
+		const message = waitForMessage(msgId, timeoutMs), sendNode(node)
+		console.log('APÓS O waitForMessage [message]:', message)
+		
+		const resultSendNode = sendNode(node)
+		console.log('APÓS O sendNode [resultSendNode]:', resultSendNode)
 
-		console.log('APÓS O RESULTADO [result]:', result)
+		const [result] = await Promise.all([message, resultSendNode])
+
+		console.log('APÓS O Promise.all [result]:', result)
 
 		if(result && 'tag' in result) {
 			assertNodeErrorFree(result)
